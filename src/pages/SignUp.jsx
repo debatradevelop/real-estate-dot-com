@@ -8,7 +8,7 @@ export default function SignUp() {
     Email: "",
   });
   const [Adding, setAdding] = useState(false);
-  const [Error, setError] = useState(null);
+  const [Error, setError] = useState("");
   function HandleUserName(e) {
     const Data = e.target.value;
     setFormData({
@@ -38,7 +38,7 @@ export default function SignUp() {
     setAdding(true);
     e.preventDefault();
     try {
-      const res = await fetch("api/v1/auth", {
+      const res = await fetch("api/v1/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,11 +48,12 @@ export default function SignUp() {
       const data = await res.json();
       console.log(data);
       setAdding(false);
+      setError("User added");
       //setAdditionResult(true);
     } catch (error) {
       console.log("Error:", error);
       setAdding(false);
-      setError(error.message);
+      setError("User Could not be added");
       console.log(Error);
     }
   }
